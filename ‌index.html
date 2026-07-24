@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Revive Auto Detailing — Pricing & Services</title>
+<meta name="description" content="Mobile auto detailing pricing and services — Basic, Standard, and Signature packages, plus add-ons.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --asphalt: #0d1012;
+    --panel: #16191c;
+    --panel-raised: #1c2023;
+    --chrome: #dbe2e6;
+    --chrome-dim: #8b949a;
+    --amber: #e3a23a;
+    --amber-dim: #7a5a24;
+    --teal: #2ba99f;
+    --hairline: #2a2f33;
+    --shadow: rgba(0,0,0,0.5);
+  }
+
+  *{ box-sizing: border-box; }
+  html{ scroll-behavior: smooth; }
+  body{
+    margin:0;
+    background: var(--asphalt);
+    color: var(--chrome);
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .noise{
+    position: fixed; inset:0; pointer-events:none; opacity:0.035; z-index:1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position: relative;
+    padding: 5.5rem 1.5rem 4.5rem;
+    text-align:center;
+    overflow:hidden;
+    border-bottom: 1px solid var(--hairline);
+  }
+  .hero::before{
+    content:"";
+    position:absolute; inset:-40% -10% auto -10%;
+    height: 140%;
+    background: linear-gradient(120deg, transparent 30%, rgba(219,226,230,0.06) 45%, rgba(219,226,230,0.11) 50%, rgba(219,226,230,0.06) 55%, transparent 70%);
+    transform: rotate(-8deg);
+    animation: sheen 9s ease-in-out infinite;
+  }
+  @keyframes sheen{
+    0%,100%{ transform: rotate(-8deg) translateX(-4%); }
+    50%{ transform: rotate(-8deg) translateX(4%); }
+  }
+  .eyebrow{
+    position:relative; z-index:2;
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing: 0.35em;
+    font-size: 0.7rem;
+    color: var(--teal);
+    text-transform: uppercase;
+    margin-bottom: 1.1rem;
+  }
+  h1{
+    position:relative; z-index:2;
+    font-family:'Oswald', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    font-size: clamp(2.4rem, 7vw, 4.4rem);
+    margin: 0;
+    color: #f2f5f6;
+  }
+  .tagline{
+    position:relative; z-index:2;
+    font-size: 1.05rem;
+    color: var(--chrome-dim);
+    max-width: 34rem;
+    margin: 1.1rem auto 0;
+    line-height: 1.6;
+  }
+  .hero-meta{
+    position:relative; z-index:2;
+    margin-top: 2.2rem;
+    display:flex; gap: 1.7rem; justify-content:center; flex-wrap:wrap;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.78rem;
+    color: var(--chrome-dim);
+  }
+  .hero-meta span{ color: var(--amber); }
+  .social-link{
+    display:inline-flex;
+    align-items:center;
+    gap: 0.45rem;
+    color: var(--chrome-dim);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+  .social-link svg{
+    width: 15px;
+    height: 15px;
+    fill: currentColor;
+    flex-shrink: 0;
+  }
+  .social-link:hover{ color: var(--chrome); }
+  .social-link:focus-visible{ outline: 2px solid var(--teal); outline-offset: 3px; }
+
+  /* ---------- SECTION LABEL ---------- */
+  .section-label{
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+    font-size:0.72rem;
+    color: var(--chrome-dim);
+    margin: 3.6rem 0 1.6rem;
+  }
+  .price-note{
+    max-width: 34rem;
+    margin: 0 auto 2.4rem;
+    padding: 0 1.5rem;
+    text-align:center;
+    font-size: 0.86rem;
+    color: var(--chrome-dim);
+    line-height: 1.6;
+  }
+
+  /* ---------- BUILD SHEET (tiers) ---------- */
+  .sheet{
+    max-width: 880px;
+    margin: 0 auto;
+    padding: 0 1.5rem 2rem;
+    position: relative;
+  }
+
+  .tier{
+    position: relative;
+    background: var(--panel);
+    border: 1px solid var(--hairline);
+    border-radius: 4px;
+    padding: 2.1rem 2rem 2.3rem;
+    margin-bottom: 2.6rem;
+    box-shadow: 0 20px 40px -20px var(--shadow);
+    transition: transform 0.2s ease, border-color 0.2s ease;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: rise 0.6s ease forwards;
+  }
+  .tier:nth-child(1){ animation-delay: 0.05s; }
+  .tier:nth-child(2){ animation-delay: 0.15s; }
+  .tier:nth-child(3){ animation-delay: 0.25s; }
+  @keyframes rise{
+    to{ opacity: 1; transform: translateY(0); }
+  }
+  .tier:hover{
+    border-color: var(--amber-dim);
+    transform: translateY(-3px);
+  }
+
+  /* perforated tear edge, callback to the notebook page */
+  .tier::before{
+    content:"";
+    position:absolute;
+    left:0; right:0; top:-1.15rem;
+    height: 1.15rem;
+    background-image: radial-gradient(circle at 10px 0, transparent 6px, var(--asphalt) 6.5px);
+    background-size: 20px 100%;
+    background-repeat: repeat-x;
+  }
+  .tier:first-child::before{ display:none; }
+
+  .tier-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap: 1rem;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--hairline);
+    padding-bottom: 1.1rem;
+    margin-bottom: 1.5rem;
+  }
+  .tier-name{
+    font-family:'Oswald', sans-serif;
+    font-size: 1.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    color: #f2f5f6;
+  }
+  .tier-includes{
+    display:block;
+    font-family:'Inter', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 400;
+    color: var(--teal);
+    margin-top: 0.3rem;
+    letter-spacing: normal;
+    text-transform: none;
+  }
+  .tier-price{
+    font-family:'JetBrains Mono', monospace;
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--amber);
+    background: var(--panel-raised);
+    border: 1px solid var(--amber-dim);
+    border-radius: 3px;
+    padding: 0.45rem 0.9rem;
+    white-space: nowrap;
+  }
+
+  .tier-cols{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  @media (max-width: 560px){
+    .tier-cols{ grid-template-columns: 1fr; gap: 1.4rem; }
+  }
+
+  .col-label{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--chrome-dim);
+    margin-bottom: 0.7rem;
+  }
+  ul.checklist{
+    list-style:none;
+    margin:0; padding:0;
+  }
+  ul.checklist li{
+    position: relative;
+    padding-left: 1.4rem;
+    margin-bottom: 0.55rem;
+    font-size: 0.94rem;
+    line-height: 1.4;
+    color: var(--chrome);
+  }
+  ul.checklist li::before{
+    content:"✓";
+    position:absolute; left:0; top:0;
+    color: var(--chrome-dim);
+    font-size: 0.8rem;
+  }
+  ul.checklist li.new{ color: #f2f5f6; font-weight: 500; }
+  ul.checklist li.new::before{
+    content:"+";
+    color: var(--amber);
+    font-weight: 700;
+  }
+  ul.checklist li.inherited{ color: var(--chrome-dim); }
+
+  /* ---------- ADD-ONS ---------- */
+  .addons-wrap{
+    max-width: 880px;
+    margin: 1rem auto 4rem;
+    padding: 0 1.5rem;
+  }
+  .addons-panel{
+    border: 1px dashed var(--hairline);
+    border-radius: 4px;
+    padding: 1.8rem 2rem 2rem;
+  }
+  .addons-title{
+    font-family:'Oswald', sans-serif;
+    font-size: 1.15rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #f2f5f6;
+    margin: 0 0 0.3rem;
+  }
+  .addons-sub{
+    font-size: 0.85rem;
+    color: var(--chrome-dim);
+    margin: 0 0 1.3rem;
+  }
+  .chip-row{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+  }
+  .chip{
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    color: var(--chrome);
+    background: var(--panel);
+    border: 1px solid var(--hairline);
+    border-radius: 999px;
+    padding: 0.45rem 0.95rem;
+  }
+  .chip::before{ content:"• "; color: var(--teal); }
+
+  /* ---------- FOOTER / CTA ---------- */
+  .cta{
+    text-align:center;
+    padding: 1rem 1.5rem 5rem;
+  }
+  .cta p{
+    color: var(--chrome-dim);
+    font-size: 0.92rem;
+    margin: 0 0 1.4rem;
+  }
+  .cta-button{
+    display:inline-block;
+    font-family:'JetBrains Mono', monospace;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    color: var(--asphalt);
+    background: var(--amber);
+    border: none;
+    border-radius: 3px;
+    padding: 0.95rem 2.1rem;
+    text-decoration: none;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+    box-shadow: 0 10px 25px -10px rgba(227,162,58,0.5);
+  }
+  .cta-button:hover{ transform: translateY(-2px); }
+  .cta-button:focus-visible{ outline: 2px solid var(--teal); outline-offset: 3px; }
+
+  .foot-note{
+    text-align:center;
+    font-family:'JetBrains Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: var(--hairline);
+    padding-bottom: 2rem;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .hero::before{ animation: none; }
+    .cta-button{ transition: none; }
+    .tier{ animation: none; opacity: 1; transform: none; transition: none; }
+  }
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<section class="hero">
+  <div class="eyebrow">Mobile Detailing · We Come To You</div>
+  <h1>Revive Auto Detailing</h1>
+  <p class="tagline">Professional interior &amp; exterior detailing, done in your driveway. Every package builds on the one before it &mdash; pick where you want to stop.</p>
+  <div class="hero-meta">
+    <a class="social-link" href="https://instagram.com/reviveautodetailing.sc" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.58.01 4.85.07 1.17.05 1.97.24 2.43.4a4.9 4.9 0 0 1 1.77 1.15 4.9 4.9 0 0 1 1.15 1.77c.16.46.35 1.26.4 2.43.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.24 1.97-.4 2.43a4.9 4.9 0 0 1-1.15 1.77 4.9 4.9 0 0 1-1.77 1.15c-.46.16-1.26.35-2.43.4-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.97-.24-2.43-.4a4.9 4.9 0 0 1-1.77-1.15 4.9 4.9 0 0 1-1.15-1.77c-.16-.46-.35-1.26-.4-2.43C2.21 15.58 2.2 15.2 2.2 12s.01-3.58.07-4.85c.05-1.17.24-1.97.4-2.43a4.9 4.9 0 0 1 1.15-1.77A4.9 4.9 0 0 1 5.6 1.8c.46-.16 1.26-.35 2.43-.4C9.3 1.34 9.68 1.33 12 1.33Zm0 1.8c-3.16 0-3.51.01-4.75.07-1.02.05-1.58.22-1.94.36-.49.19-.84.42-1.21.79-.37.37-.6.72-.79 1.21-.14.36-.31.92-.36 1.94C2.89 8.31 2.88 8.66 2.88 12s.01 3.69.07 4.83c.05 1.02.22 1.58.36 1.94.19.49.42.84.79 1.21.37.37.72.6 1.21.79.36.14.92.31 1.94.36 1.24.06 1.59.07 4.75.07s3.51-.01 4.75-.07c1.02-.05 1.58-.22 1.94-.36.49-.19.84-.42 1.21-.79.37-.37.6-.72.79-1.21.14-.36.31-.92.36-1.94.06-1.14.07-1.49.07-4.83s-.01-3.69-.07-4.83c-.05-1.02-.22-1.58-.36-1.94a3.1 3.1 0 0 0-.79-1.21 3.1 3.1 0 0 0-1.21-.79c-.36-.14-.92-.31-1.94-.36C15.51 4.01 15.16 4 12 4Zm0 3.05a4.95 4.95 0 1 1 0 9.9 4.95 4.95 0 0 1 0-9.9Zm0 1.8a3.15 3.15 0 1 0 0 6.3 3.15 3.15 0 0 0 0-6.3Zm5.16-1.98a1.16 1.16 0 1 1-2.31 0 1.16 1.16 0 0 1 2.31 0Z"/></svg>
+      <span>@</span>reviveautodetailing.sc
+    </a>
+    <a class="social-link" href="https://www.facebook.com/profile.php?id=61573480344167" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.5 21v-7.6h2.55l.38-2.96H13.5V8.53c0-.86.24-1.44 1.47-1.44h1.57V4.46A21 21 0 0 0 14.3 4.3c-2.25 0-3.79 1.37-3.79 3.89v2.17H8v2.96h2.51V21h3Z"/></svg>
+      Revive AutoDetailing
+    </a>
+  </div>
+</section>
+
+<div class="section-label">Pricing &amp; Services</div>
+<p class="price-note">Prices fall within each range based on your vehicle's size and current condition &mdash; you'll get an exact quote before any work starts.</p>
+
+<div class="sheet">
+
+  <div class="tier">
+    <div class="tier-head">
+      <div class="tier-name">Basic</div>
+      <div class="tier-price">$60 – $130</div>
+    </div>
+    <div class="tier-cols">
+      <div>
+        <div class="col-label">Interior</div>
+        <ul class="checklist">
+          <li class="new">Vacuum</li>
+          <li class="new">Wipe down</li>
+          <li class="new">Glass cleaning</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-label">Exterior</div>
+        <ul class="checklist">
+          <li class="new">2-step wash</li>
+          <li class="new">Tire shine</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="tier">
+    <div class="tier-head">
+      <div>
+        <div class="tier-name">Standard<span class="tier-includes">Includes everything in Basic</span></div>
+      </div>
+      <div class="tier-price">$100 – $175</div>
+    </div>
+    <div class="tier-cols">
+      <div>
+        <div class="col-label">Interior</div>
+        <ul class="checklist">
+          <li class="inherited">Vacuum, wipe down, glass cleaning</li>
+          <li class="new">Door jambs</li>
+          <li class="new">Light stain removal</li>
+          <li class="new">Thorough interior cleaning</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-label">Exterior</div>
+        <ul class="checklist">
+          <li class="inherited">2-step wash, tire shine</li>
+          <li class="new">Trim restoration</li>
+          <li class="new">Wax</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="tier">
+    <div class="tier-head">
+      <div>
+        <div class="tier-name">Premium<span class="tier-includes">Includes everything above</span></div>
+      </div>
+      <div class="tier-price">$160 – $245</div>
+    </div>
+    <div class="tier-cols">
+      <div>
+        <div class="col-label">Interior</div>
+        <ul class="checklist">
+          <li class="inherited">Everything in Basic &amp; Standard</li>
+          <li class="new">Seat &amp; carpet shampoo</li>
+          <li class="new">Heavy stain removal</li>
+          <li class="new">Interior condition (plastics, leather, vinyl)</li>
+        </ul>
+      </div>
+      <div>
+        <div class="col-label">Exterior</div>
+        <ul class="checklist">
+          <li class="inherited">Everything in Basic &amp; Standard</li>
+          <li class="new">Wheel barrels</li>
+          <li class="new">Iron decontamination</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="addons-wrap">
+  <div class="addons-panel">
+    <div class="addons-title">Add-Ons</div>
+    <p class="addons-sub">Tack these onto any package &mdash; priced based on your vehicle's condition.</p>
+    <div class="chip-row">
+      <span class="chip">Water spot treatment</span>
+      <span class="chip">Pet hair removal</span>
+      <span class="chip">Mold removal</span>
+      <span class="chip">Personal items removal</span>
+      <span class="chip">Odor removal</span>
+      <span class="chip">Engine bay cleaning</span>
+      <span class="chip">Headlight restoration</span>
+    </div>
+  </div>
+</div>
+
+<div class="cta">
+  <p>DM us on Instagram with your vehicle and location to get a quote.</p>
+  <a class="cta-button" href="https://instagram.com/reviveautodetailing.sc" target="_blank" rel="noopener">Book Your Detail</a>
+</div>
+
+<div class="foot-note">REVIVE AUTO DETAILING — MULLINS, SC</div>
+
+</body>
+</html>
